@@ -1,13 +1,119 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-53162",
-    "name": "Twist_Extrude",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Unitless",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-53162",
+  "name": "Twist_Extrude",
+  "ioValues": [
+    {
+      "name": "Height",
+      "ioValue": "__GEOMETRY_INPUT__"
+    },
+    {
+      "name": "Input",
+      "ioValue": 100,
+      "currentEquation": "100"
+    },
+    {
+      "name": "Angle",
+      "ioValue": 180,
+      "currentEquation": "180"
+    }
+  ],
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 0.98,
+      "y": 0.5,
+      "uniqueID": "id-53163",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.5006613756613757,
+      "y": 0.33983286908078,
+      "uniqueID": "id-53165",
+      "ioValues": [
+        {
+          "name": "inputShape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Height",
+          "ioValue": 10
+        },
+        {
+          "name": "TwistDegrees",
+          "ioValue": 180
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(\n  inputShape: Assembly | undefined = undefined,\n  Height: number = 20,\n  TwistDegrees: number = 180,\n): Assembly {\n  if (!inputShape) {\n    throw new Error(\"Connect a 2D shape Assembly to inputShape.\");\n  }\n\n  if (Height <= 0) {\n    throw new Error(\"Height must be greater than 0.\");\n  }\n\n  const g: any = inputShape.geometry;\n  const plane: any = (inputShape as any).plane ?? \"XY\";\n\n  let twisted: any;\n\n  // Drawing -> Sketch -> twist extrude\n  if (g && typeof g.sketchOnPlane === \"function\") {\n    const sketch = g.sketchOnPlane(plane);\n    twisted = sketch.extrude(Height, { twistAngle: TwistDegrees });\n  }\n  // Sketch-like -> twist extrude directly\n  else if (g && typeof g.extrude === \"function\") {\n    twisted = g.extrude(Height, { twistAngle: TwistDegrees });\n  } else {\n    throw new Error(\n      \"inputShape must be a 2D Drawing/Sketch that supports extrusion.\",\n    );\n  }\n\n  return new Assembly({\n    geometry: twisted,\n    tags: [\"twist-extrude\", \"3D\"],\n    bom: [`Twist extrude H=${Height}mm, twist=${TwistDegrees}deg`],\n  });\n}",
+      "compiledCode": "\"use strict\";\nfunction run(inputShape = undefined, Height = 20, TwistDegrees = 180) {\n    if (!inputShape) {\n        throw new Error(\"Connect a 2D shape Assembly to inputShape.\");\n    }\n    if (Height <= 0) {\n        throw new Error(\"Height must be greater than 0.\");\n    }\n    const g = inputShape.geometry;\n    const plane = inputShape.plane ?? \"XY\";\n    let twisted;\n    // Drawing -> Sketch -> twist extrude\n    if (g && typeof g.sketchOnPlane === \"function\") {\n        const sketch = g.sketchOnPlane(plane);\n        twisted = sketch.extrude(Height, { twistAngle: TwistDegrees });\n    }\n    // Sketch-like -> twist extrude directly\n    else if (g && typeof g.extrude === \"function\") {\n        twisted = g.extrude(Height, { twistAngle: TwistDegrees });\n    }\n    else {\n        throw new Error(\"inputShape must be a 2D Drawing/Sketch that supports extrusion.\");\n    }\n    return new Assembly({\n        geometry: twisted,\n        tags: [\"twist-extrude\", \"3D\"],\n        bom: [`Twist extrude H=${Height}mm, twist=${TwistDegrees}deg`],\n    });\n}\n"
+    },
+    {
+      "atomType": "Rectangle",
+      "x": 0.2361111111111111,
+      "y": 0.7353760445682451,
+      "uniqueID": "id-53177",
+      "ioValues": [
+        {
+          "name": "x length",
+          "ioValue": 5,
+          "currentEquation": "5"
+        },
+        {
+          "name": "y length",
+          "ioValue": 10
+        }
+      ]
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.6713091922005571,
+      "uniqueID": "id-53182",
+      "name": "Height",
+      "type": "geometry"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.39275766016713093,
+      "uniqueID": "id-53185"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.8105849582172702,
+      "uniqueID": "id-53188",
+      "name": "Angle"
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "inputShape",
+      "ap1ID": "id-53177",
+      "ap2ID": "id-53165"
+    },
+    {
+      "ap2Name": "Height",
+      "ap1ID": "id-53182",
+      "ap2ID": "id-53165"
+    },
+    {
+      "ap2Name": "TwistDegrees",
+      "ap1ID": "id-53188",
+      "ap2ID": "id-53165"
+    }
+  ],
+  "unitsKey": "Unitless",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
