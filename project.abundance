@@ -7,12 +7,12 @@
   "ioValues": [
     {
       "name": "Height",
-      "ioValue": "__GEOMETRY_INPUT__"
+      "ioValue": 20,
+      "currentEquation": "20"
     },
     {
       "name": "Input",
-      "ioValue": 100,
-      "currentEquation": "100"
+      "ioValue": "__GEOMETRY_INPUT__"
     },
     {
       "name": "Angle",
@@ -36,7 +36,7 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5006613756613757,
+      "x": 0.5033068783068783,
       "y": 0.33983286908078,
       "uniqueID": "id-53165",
       "ioValues": [
@@ -46,7 +46,7 @@
         },
         {
           "name": "Height",
-          "ioValue": 10
+          "ioValue": 20
         },
         {
           "name": "TwistDegrees",
@@ -77,16 +77,17 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.6713091922005571,
+      "y": 0.5181058495821727,
       "uniqueID": "id-53182",
       "name": "Height",
-      "type": "geometry"
+      "type": "number"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.39275766016713093,
-      "uniqueID": "id-53185"
+      "y": 0.2841225626740947,
+      "uniqueID": "id-53185",
+      "type": "geometry"
     },
     {
       "atomType": "Input",
@@ -97,6 +98,11 @@
     }
   ],
   "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-53165",
+      "ap2ID": "id-53163"
+    },
     {
       "ap2Name": "inputShape",
       "ap1ID": "id-53177",
