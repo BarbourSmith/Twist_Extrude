@@ -6,8 +6,8 @@
 
 ## Inputs
 
-- **Height** (geometry)
-- **Input** (number)
+- **Height** (number)
+- **Input** (geometry)
 - **Angle** (number)
 
 
