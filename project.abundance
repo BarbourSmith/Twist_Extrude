@@ -58,23 +58,6 @@
       "compiledCode": "\"use strict\";\nfunction run(inputShape = undefined, Height = 20, TwistDegrees = 180) {\n    if (!inputShape) {\n        throw new Error(\"Connect a 2D shape Assembly to inputShape.\");\n    }\n    if (Height <= 0) {\n        throw new Error(\"Height must be greater than 0.\");\n    }\n    const g = inputShape.geometry;\n    const plane = inputShape.plane ?? \"XY\";\n    let twisted;\n    // Drawing -> Sketch -> twist extrude\n    if (g && typeof g.sketchOnPlane === \"function\") {\n        const sketch = g.sketchOnPlane(plane);\n        twisted = sketch.extrude(Height, { twistAngle: TwistDegrees });\n    }\n    // Sketch-like -> twist extrude directly\n    else if (g && typeof g.extrude === \"function\") {\n        twisted = g.extrude(Height, { twistAngle: TwistDegrees });\n    }\n    else {\n        throw new Error(\"inputShape must be a 2D Drawing/Sketch that supports extrusion.\");\n    }\n    return new Assembly({\n        geometry: twisted,\n        tags: [\"twist-extrude\", \"3D\"],\n        bom: [`Twist extrude H=${Height}mm, twist=${TwistDegrees}deg`],\n    });\n}\n"
     },
     {
-      "atomType": "Rectangle",
-      "x": 0.2361111111111111,
-      "y": 0.7353760445682451,
-      "uniqueID": "id-53177",
-      "ioValues": [
-        {
-          "name": "x length",
-          "ioValue": 5,
-          "currentEquation": "5"
-        },
-        {
-          "name": "y length",
-          "ioValue": 10
-        }
-      ]
-    },
-    {
       "atomType": "Input",
       "x": 0.025384615384615384,
       "y": 0.5181058495821727,
@@ -104,13 +87,13 @@
       "ap2ID": "id-53163"
     },
     {
-      "ap2Name": "inputShape",
-      "ap1ID": "id-53177",
+      "ap2Name": "Height",
+      "ap1ID": "id-53182",
       "ap2ID": "id-53165"
     },
     {
-      "ap2Name": "Height",
-      "ap1ID": "id-53182",
+      "ap2Name": "inputShape",
+      "ap1ID": "id-53185",
       "ap2ID": "id-53165"
     },
     {
